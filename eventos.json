@@ -41,7 +41,7 @@
     "modalidade": "Presencial",
     "resumo": "Recepção de estudantes em nível médio e fundamental",
     "imagem": "imagens/ufvjm/vempraufvjm.jpg",
-    "link": ""
+    "link": "https://www.instagram.com/ufvjm_campusunai/"
   },
   {
     "id": "ufvjm-inovaagroflorestal",
@@ -51,7 +51,7 @@
     "local": "Campus JK - Diamantina - MG",
     "modalidade": "Presencial",
     "resumo": "Palestras, minicursos e apresentação de trabalhos.",
-    "imagem": "imagens/ufvjm/inovaagroflorestal.jpg",
+    "imagem": "imagens/ufvjm/inovaagroflorestal.png",
     "link": "https://www.instagram.com/inovaagroflorestal/"
   },
   {
@@ -84,7 +84,7 @@
     "local": "Cuiabá - MT",
     "modalidade": "Presencial",
     "resumo": "Apresentação de trabalhos.",
-    "imagem": "imagens/congressos/sintag.jpg",
+    "imagem": "imagens/congressos/sintag.png",
     "link": "https://www.sintag.org.br/"
   },
   {

@@ -9,7 +9,7 @@
       content="Agenda de eventos acadêmicos, congressos, simpósios, feiras e encontros acompanhados pelo grupo de pesquisa Agroprecision."
     />
     <meta name="theme-color" content="#166534" />
-    <link rel="icon" href="logo.png" type="image/png" />
+    <link rel="icon" href="imagens/logo.png" type="image/png" />
 
     <!-- Fonte: Poppins (Google Fonts). Se falhar, o navegador usa uma fonte do sistema. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -133,7 +133,7 @@
           aria-label="Agroprecision - voltar ao topo"
         >
           <img
-            src="logo.png"
+            src="imagens/logo.png"
             alt="Agroprecision"
             width="522"
             height="348"
@@ -502,7 +502,7 @@
           aria-label="Agroprecision - voltar ao topo"
         >
           <img
-            src="logo.png"
+            src="imagens/logo.png"
             alt="Agroprecision"
             width="522"
             height="348"
@@ -1203,11 +1203,9 @@
           // Enter: leva a tela até os resultados (útil no celular, onde a busca fica no topo).
           formBusca.addEventListener("submit", (e) => {
             e.preventDefault();
-            document
-              .getElementById("eventos")
-              .scrollIntoView({
-                behavior: prefereMenosMovimento() ? "auto" : "smooth",
-              });
+            document.getElementById("eventos").scrollIntoView({
+              behavior: prefereMenosMovimento() ? "auto" : "smooth",
+            });
             campoBusca.blur();
           });
         }
