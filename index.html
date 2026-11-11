@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agroprecision | Agenda de eventos</title>
+  <meta name="description" content="Agenda de eventos acadêmicos, congressos, simpósios, feiras e encontros acompanhados pelo grupo de pesquisa Agroprecision.">
+  <meta name="theme-color" content="#166534">
+  <link rel="icon" href="logo.png" type="image/png">
+
+  <!-- Fonte: Poppins (Google Fonts). Se falhar, o navegador usa uma fonte do sistema. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN (sem etapa de build, ideal para GitHub Pages) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    /* ------------------------------------------------------------------
+       Tema do Tailwind: paleta de verdes inspirada na referência visual
+       (títulos com destaque verde, badges em verde escuro, cards claros).
+       Para mudar a identidade visual do site, ajuste as cores abaixo.
+       ------------------------------------------------------------------ */
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif']
+          },
+          colors: {
+            brand: {
+              50:  '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              500: '#22a34a',
+              600: '#16923f',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d'
+            }
+          },
+          boxShadow: {
+            card: '0 1px 2px rgba(16,24,40,.06), 0 6px 16px rgba(16,24,40,.07)',
+            'card-hover': '0 2px 4px rgba(16,24,40,.08), 0 14px 28px rgba(16,24,40,.12)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* ------------------------------------------------------------------
+       CSS personalizado (apenas o que o Tailwind não cobre sozinho)
+       ------------------------------------------------------------------ */
+
+    /* Esconde elementos via JS. Usamos !important para vencer classes
+       como "flex" do Tailwind, que sobrescreveriam o atributo [hidden]. */
+    .is-hidden { display: none !important; }
+
+    /* Esconde a barra de rolagem dos carrosséis (a rolagem por toque e
+       pelos botões continua funcionando normalmente). */
+    .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+
+    /* Remove o "x" nativo do campo de busca (usamos um botão próprio). */
+    input[type="search"]::-webkit-search-cancel-button,
+    input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
+
+    /* Respeita quem prefere menos animação. */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto !important; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body id="topo" class="bg-white font-sans text-gray-800 antialiased">
+
+  <!-- Link de acessibilidade: permite pular direto ao conteúdo pelo teclado -->
+  <a href="#eventos"
+     class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-brand-800 focus:px-4 focus:py-2 focus:text-white">
+    Pular para os eventos
+  </a>
+
+  <!-- =====================================================================
+       HEADER
+       Desktop: [logo]  [Sobre  Eventos  (busca)]  [espaço]
+       Mobile : linha 1 = logo + links | linha 2 = busca em largura total
+       ===================================================================== -->
+  <!-- Fixo no topo só em telas grandes: no celular o header tem 2 linhas e roubaria espaço da tela. -->
+  <header class="z-40 border-b border-gray-200 bg-white lg:sticky lg:top-0">
+    <div class="mx-auto grid max-w-7xl grid-cols-[1fr_auto] items-center gap-x-4 gap-y-3 px-4 py-3 sm:px-6 lg:grid-cols-[1fr_auto_1fr] lg:gap-x-10 lg:px-8">
+
+      <!-- Logo (alinhada à esquerda) -->
+      <a href="#topo" class="justify-self-start" aria-label="Agroprecision - voltar ao topo">
+        <img src="logo.png" alt="Agroprecision" width="522" height="348" data-logo
+             class="h-12 w-auto sm:h-14">
+      </a>
+
+      <!-- Bloco central: no mobile "dissolve" (contents) e seus filhos entram na grade -->
+      <div class="contents lg:flex lg:items-center lg:gap-8">
+
+        <!-- Navegação (centro-esquerda) -->
+        <nav aria-label="Navegação principal" class="justify-self-end">
+          <ul class="flex items-center gap-5 text-sm font-medium sm:gap-7 sm:text-base">
+            <li><a href="#sobre" class="rounded py-1 text-gray-700 transition hover:text-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600">Sobre</a></li>
+            <li><a href="#eventos" class="rounded py-1 text-gray-700 transition hover:text-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600">Eventos</a></li>
+          </ul>
+        </nav>
+
+        <!-- Caixa de pesquisa (centro-direita): filtra os eventos em tempo real -->
+        <form id="form-busca" role="search" class="relative col-span-2 w-full lg:col-span-1 lg:w-96" autocomplete="off">
+          <label for="busca" class="sr-only">Buscar eventos por título, local ou palavra-chave</label>
+
+          <svg class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
+          </svg>
+
+          <input id="busca" name="busca" type="search" inputmode="search" enterkeyhint="search"
+                 placeholder="Buscar título, local ou palavra-chave"
+                 class="w-full rounded-full border border-gray-300 bg-gray-50 py-2.5 pl-10 pr-9 text-sm text-gray-800 placeholder-gray-400 outline-none transition focus:border-brand-600 focus:bg-white focus:ring-2 focus:ring-brand-600/30">
+
+          <!-- Botão "limpar" (aparece só quando há texto) -->
+          <button id="btn-limpar" type="button" aria-label="Limpar busca"
+                  class="is-hidden absolute right-2.5 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-gray-400 transition hover:bg-gray-200 hover:text-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-600">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Espaço reservado à direita (equilibra a grade no desktop) -->
+      <div class="hidden lg:block" aria-hidden="true"></div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- =====================================================================
+         SEÇÃO PRINCIPAL: EVENTOS
+         Os carrosséis são criados pelo JavaScript a partir do eventos.json.
+         Nenhum evento fica fixo neste HTML.
+         ===================================================================== -->
+    <section id="eventos" class="scroll-mt-4 lg:scroll-mt-24" aria-labelledby="titulo-eventos">
+      <div class="mx-auto max-w-7xl px-4 pb-6 pt-10 sm:px-6 sm:pt-14 lg:px-8">
+
+        <!-- Introdução -->
+        <div class="max-w-2xl">
+          <h1 id="titulo-eventos" class="text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">
+            Agenda de <span class="text-brand-700">eventos</span>
+          </h1>
+          <p class="mt-3 text-base leading-relaxed text-gray-600">
+            Congressos, simpósios, feiras e encontros técnicos acompanhados pelo grupo.
+            Use a busca no topo para filtrar por título, local ou palavra-chave.
+          </p>
+        </div>
+
+        <!-- Status da busca (lido por leitores de tela quando muda) -->
+        <p id="status-busca" class="mt-4 min-h-[1.5rem] text-sm font-medium text-brand-800" role="status" aria-live="polite"></p>
+
+        <!-- Aviso (aparece só se algum evento do JSON estiver com erro) -->
+        <div id="aviso-dados" class="is-hidden mt-2 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900" role="alert"></div>
+      </div>
+
+      <div class="mx-auto max-w-7xl space-y-14 px-4 pb-16 sm:px-6 lg:px-8">
+
+        <!-- Esqueleto de carregamento (removido quando o JSON chega) -->
+        <div id="carregando" class="space-y-14" aria-busy="true">
+          <p class="sr-only">Carregando eventos…</p>
+          <div class="animate-pulse space-y-5" aria-hidden="true">
+            <div class="h-8 w-56 rounded bg-gray-200"></div>
+            <div class="flex gap-5 overflow-hidden">
+              <div class="h-80 w-72 shrink-0 rounded-2xl bg-gray-100"></div>
+              <div class="h-80 w-72 shrink-0 rounded-2xl bg-gray-100"></div>
+              <div class="hidden h-80 w-72 shrink-0 rounded-2xl bg-gray-100 sm:block"></div>
+              <div class="hidden h-80 w-72 shrink-0 rounded-2xl bg-gray-100 lg:block"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Erro ao carregar o eventos.json -->
+        <div id="erro-carregamento" class="is-hidden rounded-2xl border border-red-200 bg-red-50 p-6 text-red-900" role="alert">
+          <h2 class="text-lg font-semibold">Não foi possível carregar a lista de eventos</h2>
+          <p id="erro-detalhe" class="mt-2 text-sm leading-relaxed"></p>
+        </div>
+
+        <!-- Nenhum resultado para a busca -->
+        <div id="sem-resultados" class="is-hidden rounded-2xl border border-dashed border-gray-300 bg-gray-50 px-6 py-14 text-center">
+          <p class="text-lg font-semibold text-gray-900">Nenhum evento encontrado</p>
+          <p class="mx-auto mt-2 max-w-md text-sm text-gray-600">
+            Tente outra palavra, o nome de uma cidade ou o nome do evento.
+          </p>
+          <button id="btn-limpar-vazio" type="button"
+                  class="mt-5 inline-flex items-center rounded-lg bg-brand-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600">
+            Limpar busca
+          </button>
+        </div>
+
+        <!-- Os 3 carrosséis são inseridos aqui pelo JavaScript -->
+        <div id="carrosseis" class="space-y-14"></div>
+
+        <noscript>
+          <p class="rounded-xl bg-amber-50 p-4 text-amber-900">
+            Este site precisa de JavaScript ativado para exibir a lista de eventos.
+          </p>
+        </noscript>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SEÇÃO SOBRE (institucional)
+         >>> EDITE OS TEXTOS ABAIXO para refletir o grupo de pesquisa. <<<
+         ===================================================================== -->
+    <section id="sobre" class="scroll-mt-4 border-t border-brand-100 bg-brand-50 lg:scroll-mt-24" aria-labelledby="titulo-sobre">
+      <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+
+          <!-- Texto institucional -->
+          <div>
+            <div class="flex items-start gap-3">
+              <span class="w-1.5 self-stretch rounded bg-brand-800" aria-hidden="true"></span>
+              <div>
+                <h2 id="titulo-sobre" class="text-2xl font-semibold text-gray-900 sm:text-3xl">
+                  Sobre o <span class="text-brand-700">Agroprecision</span>
+                </h2>
+                <span class="mt-2 block h-1 w-14 rounded-full bg-brand-600" aria-hidden="true"></span>
+              </div>
+            </div>
+
+            <div class="mt-6 space-y-4 text-base leading-relaxed text-gray-700">
+              <p>
+                O Agroprecision é um grupo de pesquisa acadêmica dedicado à agricultura de precisão:
+                o uso de dados, sensores, imagens de satélite e tecnologia para apoiar decisões mais
+                eficientes e sustentáveis no campo.
+              </p>
+              <p>
+                Este site reúne, em um só lugar, a agenda de eventos que acompanhamos, como semanas
+                acadêmicas, congressos, simpósios, feiras e encontros técnicos, para que estudantes,
+                pesquisadores e produtores não percam oportunidades de aprender, divulgar trabalhos e
+                criar parcerias.
+              </p>
+            </div>
+
+            <p class="mt-6 rounded-xl border border-brand-200 bg-white px-4 py-3 text-sm text-gray-700">
+              Projeto aberto e sem fins lucrativos: <strong class="font-semibold">sem login e sem coleta de dados</strong>.
+              O código é livre e a agenda é atualizada pelos próprios membros do grupo.
+            </p>
+          </div>
+
+          <!-- Pilares -->
+          <ul class="grid gap-4 self-start sm:grid-cols-1">
+            <li class="flex gap-4 rounded-2xl bg-white p-5 shadow-card">
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-100 text-brand-800">
+                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15"/><path d="M5 19c3-5 6-8 10-10"/></svg>
+              </span>
+              <div>
+                <h3 class="font-semibold text-gray-900">Pesquisa aplicada</h3>
+                <p class="mt-1 text-sm leading-relaxed text-gray-600">Geração de conhecimento voltado ao manejo, à produtividade e à sustentabilidade da produção agrícola.</p>
+              </div>
+            </li>
+            <li class="flex gap-4 rounded-2xl bg-white p-5 shadow-card">
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-100 text-brand-800">
+                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>
+              </span>
+              <div>
+                <h3 class="font-semibold text-gray-900">Tecnologia no campo</h3>
+                <p class="mt-1 text-sm leading-relaxed text-gray-600">Sensoriamento remoto, geoprocessamento e análise de dados para transformar informação em decisão.</p>
+              </div>
+            </li>
+            <li class="flex gap-4 rounded-2xl bg-white p-5 shadow-card">
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-100 text-brand-800">
+                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.2c2.4.2 4.5 2.2 4.5 4.8"/></svg>
+              </span>
+              <div>
+                <h3 class="font-semibold text-gray-900">Comunidade e divulgação</h3>
+                <p class="mt-1 text-sm leading-relaxed text-gray-600">Conexão entre estudantes, pesquisadores e produtores por meio de eventos e troca de experiências.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================================
+       FOOTER: apenas a logo (esquerda) e os canais de contato (direita)
+       >>> TROQUE OS ENDEREÇOS (href) PELOS CANAIS REAIS DO GRUPO <<<
+       ===================================================================== -->
+  <footer class="border-t border-gray-200 bg-white">
+    <div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
+
+      <a href="#topo" class="self-start" aria-label="Agroprecision - voltar ao topo">
+        <img src="logo.png" alt="Agroprecision" width="522" height="348" data-logo class="h-16 w-auto">
+      </a>
+
+      <nav aria-label="Canais de contato">
+        <ul class="flex flex-wrap gap-3 md:justify-end">
+
+          <!-- E-mail: troque o endereço depois de "mailto:" -->
+          <li>
+            <a href="mailto:contato@seudominio.com.br"
+               class="inline-flex items-center gap-2 rounded-full border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:border-brand-600 hover:bg-brand-50 hover:text-brand-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>
+              E-mail
+            </a>
+          </li>
+
+          <!-- Instagram: troque SEU_USUARIO pelo perfil do grupo -->
+          <li>
+            <a href="https://instagram.com/SEU_USUARIO" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2 rounded-full border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:border-brand-600 hover:bg-brand-50 hover:text-brand-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".8" fill="currentColor" stroke="none"/></svg>
+              Instagram
+            </a>
+          </li>
+
+          <!-- GitHub: troque pelo endereço do repositório do site -->
+          <li>
+            <a href="https://github.com/SEU_USUARIO/agroprecision" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2 rounded-full border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:border-brand-600 hover:bg-brand-50 hover:text-brand-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+              GitHub
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       JAVASCRIPT (Vanilla JS, sem bibliotecas)
+       Fluxo: carrega eventos.json -> valida -> cria os cards uma única vez
+       -> a busca apenas mostra/esconde os cards (rápido e sem "piscar").
+       ===================================================================== -->
+  <script>
+  (() => {
+    'use strict';
+
+    /* ================================================================
+       1) CONFIGURAÇÃO
+       ================================================================ */
+    const CONFIG = {
+      // Arquivo com os eventos (mesma pasta do index.html).
+      arquivoEventos: 'eventos.json',
+
+      // As 3 categorias, NA ORDEM em que aparecem na página.
+      // "nome" precisa ser idêntico ao valor de "categoria" no eventos.json.
+      // O título é montado como: prefixo (preto) + destaque (verde).
+      categorias: [
+        {
+          nome: 'UFVJM',
+          prefixo: 'Eventos ',
+          destaque: 'UFVJM',
+          descricao: 'Eventos acadêmicos e institucionais da universidade.'
+        },
+        {
+          nome: 'Congressos e simpósios',
+          prefixo: 'Congressos e ',
+          destaque: 'simpósios',
+          descricao: 'Encontros científicos para apresentar e acompanhar pesquisas.'
+        },
+        {
+          nome: 'Feiras e encontros',
+          prefixo: 'Feiras e ',
+          destaque: 'encontros',
+          descricao: 'Feiras agropecuárias, dias de campo e encontros técnicos.'
+        }
+      ],
+
+      // Campos de texto obrigatórios em cada evento ("imagem" pode ficar vazio).
+      camposObrigatorios: ['id', 'titulo', 'categoria', 'data', 'local', 'modalidade', 'resumo', 'link'],
+
+      // Cor do badge de cada modalidade (classes completas, para o Tailwind enxergar).
+      coresModalidade: {
+        'Presencial': 'bg-brand-800',
+        'Online': 'bg-sky-700',
+        'Híbrido': 'bg-amber-700'
+      },
+      corModalidadePadrao: 'bg-gray-700'
+    };
+
+    /* ================================================================
+       2) ÍCONES (SVG fixos e confiáveis; nenhum dado do JSON entra aqui)
+       ================================================================ */
+    const ICONES = {
+      calendario: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>',
+      local: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+      externo: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 4 19V8a1.5 1.5 0 0 1 1.5-1.5H10"/></svg>',
+      esquerda: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
+      direita: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>',
+      folha: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15"/><path d="M5 19c3-5 6-8 10-10"/></svg>'
+    };
+
+    /* ================================================================
+       3) FUNÇÕES AUXILIARES
+       ================================================================ */
+
+    /** Cria um elemento com classes e texto. Usa textContent (seguro contra HTML injetado). */
+    function el(tag, className = '', texto) {
+      const e = document.createElement(tag);
+      if (className) e.className = className;
+      if (texto !== undefined) e.textContent = texto;
+      return e;
+    }
+
+    /** Devolve um <svg> pronto a partir do dicionário ICONES. */
+    function icone(nome, classe = 'h-4 w-4') {
+      const t = document.createElement('template');
+      t.innerHTML = ICONES[nome].trim();
+      const svg = t.content.firstElementChild;
+      svg.setAttribute('class', classe);
+      svg.setAttribute('aria-hidden', 'true');
+      return svg;
+    }
+
+    /** Minúsculas, sem acentos e sem espaços nas pontas: "Florianópolis" casa com "florianopolis". */
+    function normalizar(texto) {
+      return String(texto ?? '')
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '')
+        .toLowerCase()
+        .trim();
+    }
+
+    /**
+     * Perdoa pequenos deslizes de digitação no eventos.json (espaço sobrando,
+     * maiúscula/minúscula, acento): devolve a categoria oficial correspondente.
+     */
+    function categoriaOficial(valor) {
+      return CONFIG.categorias.find((c) => normalizar(c.nome) === normalizar(valor)) || null;
+    }
+
+    /** Mesma ideia para a modalidade: "presencial " vira "Presencial". */
+    function modalidadeOficial(valor) {
+      return Object.keys(CONFIG.coresModalidade).find((m) => normalizar(m) === normalizar(valor)) || null;
+    }
+
+    /** Transforma um texto em um identificador simples para usar em id="". */
+    function slug(texto) {
+      return normalizar(texto).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    }
+
+    /** Aceita somente links http(s) absolutos (bloqueia javascript:, data:, etc.). */
+    function urlLinkSegura(valor) {
+      try {
+        const u = new URL(String(valor).trim());
+        return (u.protocol === 'http:' || u.protocol === 'https:') ? u.href : null;
+      } catch {
+        return null;
+      }
+    }
+
+    /** Aceita caminhos relativos (imagens/foto.jpg) ou URLs http(s). */
+    function urlImagemSegura(valor) {
+      if (typeof valor !== 'string' || !valor.trim()) return null;
+      try {
+        const u = new URL(valor.trim(), document.baseURI);
+        return (u.protocol === 'http:' || u.protocol === 'https:') ? u.href : null;
+      } catch {
+        return null;
+      }
+    }
+
+    const prefereMenosMovimento = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /** "1 evento" / "3 eventos" */
+    const rotuloContagem = (n) => `${n} ${n === 1 ? 'evento' : 'eventos'}`;
+
+    /* ================================================================
+       4) CARREGAMENTO E VALIDAÇÃO DO eventos.json
+       ================================================================ */
+
+    /** Confere se um evento tem todos os campos e uma categoria válida. */
+    function validarEvento(ev, posicao, idsVistos) {
+      const nomeRef = ev && ev.titulo ? `"${ev.titulo}"` : `item nº ${posicao + 1}`;
+
+      if (!ev || typeof ev !== 'object' || Array.isArray(ev)) {
+        return { ok: false, motivo: `${nomeRef}: não é um evento válido (esperado um bloco { ... }).` };
+      }
+
+      for (const campo of CONFIG.camposObrigatorios) {
+        if (typeof ev[campo] !== 'string' || !ev[campo].trim()) {
+          return { ok: false, motivo: `${nomeRef}: o campo "${campo}" está faltando ou vazio.` };
+        }
+      }
+
+      if (!categoriaOficial(ev.categoria)) {
+        const aceitas = CONFIG.categorias.map((c) => c.nome).join(' | ');
+        return { ok: false, motivo: `${nomeRef}: categoria "${ev.categoria}" não existe. Use exatamente: ${aceitas}.` };
+      }
+
+      if (!urlLinkSegura(ev.link)) {
+        return { ok: false, motivo: `${nomeRef}: o "link" precisa começar com http:// ou https://.` };
+      }
+
+      // Avisos que não impedem a exibição do evento:
+      if (idsVistos.has(ev.id)) console.warn(`[Agroprecision] ${nomeRef}: o id "${ev.id}" está repetido.`);
+      idsVistos.add(ev.id);
+      if (!modalidadeOficial(ev.modalidade)) {
+        console.warn(`[Agroprecision] ${nomeRef}: modalidade "${ev.modalidade}" não é Presencial, Online ou Híbrido.`);
+      }
+
+      return { ok: true };
+    }
+
+    /** Busca o JSON e devolve { eventos, ignorados }. */
+    async function carregarEventos() {
+      const resposta = await fetch(CONFIG.arquivoEventos, { cache: 'no-cache' });
+      if (!resposta.ok) throw new Error(`HTTP ${resposta.status} ao buscar ${CONFIG.arquivoEventos}`);
+
+      const dados = await resposta.json(); // pode lançar SyntaxError se o JSON estiver mal escrito
+      if (!Array.isArray(dados)) {
+        throw new Error('O arquivo eventos.json precisa começar com [ e terminar com ] (uma lista de eventos).');
+      }
+
+      const idsVistos = new Set();
+      const eventos = [];
+      const ignorados = [];
+      dados.forEach((ev, i) => {
+        const r = validarEvento(ev, i, idsVistos);
+        if (r.ok) eventos.push(ev);
+        else { ignorados.push(r.motivo); console.warn('[Agroprecision] Evento ignorado ->', r.motivo); }
+      });
+      return { eventos, ignorados };
+    }
+
+    /* ================================================================
+       5) CONSTRUÇÃO DOS CARDS
+       ================================================================ */
+
+    /** Capa exibida quando o evento não tem imagem ou a imagem falha ao carregar. */
+    function criarCapaPadrao(ev) {
+      const capa = el('div', 'absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-brand-900 via-brand-800 to-brand-600 px-4 text-center text-white/90');
+      capa.append(icone('folha', 'h-10 w-10 opacity-90'));
+      capa.append(el('span', 'text-xs font-medium uppercase tracking-widest opacity-80', ev.categoria));
+      return capa;
+    }
+
+    /** Área da imagem de capa + badge de modalidade. */
+    function criarCapa(ev) {
+      const capa = el('div', 'relative aspect-[16/9] overflow-hidden bg-brand-900');
+      const src = urlImagemSegura(ev.imagem);
+
+      if (src) {
+        const img = el('img', 'h-full w-full object-cover transition duration-500 group-hover:scale-105');
+        img.src = src;
+        img.alt = `Imagem de capa: ${ev.titulo}`;
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        // Se a imagem não existir/falhar, troca pela capa padrão.
+        img.addEventListener('error', () => img.replaceWith(criarCapaPadrao(ev)), { once: true });
+        capa.append(img);
+      } else {
+        capa.append(criarCapaPadrao(ev));
+      }
+
+      const modalidade = modalidadeOficial(ev.modalidade) ?? ev.modalidade;
+      const cor = CONFIG.coresModalidade[modalidade] ?? CONFIG.corModalidadePadrao;
+      capa.append(el('span', `absolute right-3 top-3 rounded-full px-3 py-1 text-xs font-semibold text-white shadow ${cor}`, modalidade));
+      return capa;
+    }
+
+    /** Linha com ícone + texto (data e local). */
+    function criarLinhaInfo(nomeIcone, texto) {
+      const li = el('li', 'flex items-start gap-2');
+      li.append(icone(nomeIcone, 'mt-0.5 h-4 w-4 shrink-0 text-brand-700'));
+      li.append(el('span', '', texto));
+      return li;
+    }
+
+    /** Monta um card completo de evento. */
+    function criarCard(ev) {
+      const card = el('li', 'group flex w-[16.5rem] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-card transition duration-300 hover:-translate-y-0.5 hover:shadow-card-hover sm:w-72 lg:w-80');
+
+      card.append(criarCapa(ev));
+
+      const corpo = el('div', 'flex flex-1 flex-col gap-3 p-4 sm:p-5');
+      corpo.append(el('h3', 'line-clamp-2 min-h-[2.9rem] text-base font-semibold leading-snug text-gray-900', ev.titulo));
+
+      const info = el('ul', 'space-y-1.5 text-sm text-gray-600');
+      info.append(criarLinhaInfo('calendario', ev.data));
+      info.append(criarLinhaInfo('local', ev.local));
+      corpo.append(info);
+
+      corpo.append(el('p', 'line-clamp-3 text-sm leading-relaxed text-gray-600', ev.resumo));
+
+      // Botão para o site oficial (abre em nova aba, sem vazar o "opener").
+      const botao = el('a', 'mt-auto inline-flex items-center justify-center gap-2 rounded-lg bg-brand-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600');
+      botao.href = urlLinkSegura(ev.link);
+      botao.target = '_blank';
+      botao.rel = 'noopener noreferrer';
+      botao.setAttribute('aria-label', `Acessar evento: ${ev.titulo} (abre em nova aba)`);
+      botao.append(document.createTextNode('Acessar evento'));
+      botao.append(icone('externo', 'h-4 w-4'));
+      corpo.append(botao);
+
+      card.append(corpo);
+      return card;
+    }
+
+    /* ================================================================
+       6) CARROSSEL (um por categoria, todos independentes)
+       ================================================================ */
+
+    /**
+     * Cria o botão circular de seta lateral.
+     * O "top" alinha a seta ao centro da IMAGEM de capa (e não do card inteiro),
+     * para ela nunca cobrir o título. Os valores acompanham a largura dos cards
+     * (w-[16.5rem] / sm:w-72 / lg:w-80, proporção 16:9) + 0.75rem do recuo da trilha.
+     * Se mudar a largura dos cards, ajuste os três valores "top-[...]" abaixo.
+     */
+    function criarBotaoSeta(direcao, rotulo) {
+      const lado = direcao === 'esquerda' ? 'left-1 sm:-left-4' : 'right-1 sm:-right-4';
+      const b = el('button', `absolute top-[5.35rem] z-10 flex h-9 w-9 -translate-y-1/2 items-center sm:top-[5.8rem] lg:top-[6.35rem] justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-md transition hover:bg-brand-50 hover:text-brand-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-600 disabled:pointer-events-none disabled:opacity-0 sm:h-10 sm:w-10 ${lado}`);
+      b.type = 'button';
+      b.setAttribute('aria-label', rotulo);
+      b.append(icone(direcao, 'h-5 w-5'));
+      return b;
+    }
+
+    /** Monta a seção de uma categoria (título, trilha de cards e setas). */
+    function criarCarrossel(cat, eventosDaCategoria) {
+      const id = slug(cat.nome);
+      const secao = el('section', '');
+      secao.setAttribute('aria-labelledby', `titulo-${id}`);
+
+      // Cabeçalho: barra verde + título (com destaque) + sublinhado + contagem
+      const cabecalho = el('div', 'mb-5 flex items-end justify-between gap-4');
+      const blocoTitulo = el('div', 'flex items-start gap-3');
+      const barra = el('span', 'w-1.5 self-stretch rounded bg-brand-800');
+      barra.setAttribute('aria-hidden', 'true');
+      blocoTitulo.append(barra);
+
+      const textos = el('div');
+      const h2 = el('h2', 'text-2xl font-semibold text-gray-900 sm:text-3xl');
+      h2.id = `titulo-${id}`;
+      h2.append(document.createTextNode(cat.prefixo));
+      h2.append(el('span', 'text-brand-700', cat.destaque));
+      textos.append(h2);
+      textos.append(el('span', 'mt-2 block h-1 w-14 rounded-full bg-brand-600'));
+      textos.append(el('p', 'mt-2 text-sm text-gray-500', cat.descricao));
+      blocoTitulo.append(textos);
+
+      const contagem = el('span', 'shrink-0 pb-1 text-sm font-medium text-gray-500', rotuloContagem(eventosDaCategoria.length));
+      cabecalho.append(blocoTitulo, contagem);
+      secao.append(cabecalho);
+
+      // Mensagem para categoria sem eventos cadastrados
+      const vazio = el('p', 'rounded-xl border border-dashed border-gray-300 bg-gray-50 px-4 py-8 text-center text-sm text-gray-500', 'Nenhum evento cadastrado nesta categoria por enquanto.');
+      vazio.classList.toggle('is-hidden', eventosDaCategoria.length > 0);
+
+      // Área do carrossel (posição relativa para as setas)
+      const area = el('div', 'relative');
+      area.classList.toggle('is-hidden', eventosDaCategoria.length === 0);
+
+      // Trilha rolável. O toque no mobile é a rolagem nativa com "snap".
+      const trilha = el('ul', 'no-scrollbar -mx-1 -my-3 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-1 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/40 sm:gap-5');
+      trilha.tabIndex = 0;
+      trilha.setAttribute('aria-label', `Eventos: ${cat.nome}. Use as setas do teclado para rolar.`);
+
+      const itens = eventosDaCategoria.map((ev) => {
+        const card = criarCard(ev);
+        trilha.append(card);
+        // Texto usado na busca: título, local, categoria, modalidade, data e resumo.
+        const texto = normalizar([ev.titulo, ev.local, ev.categoria, ev.modalidade, ev.data, ev.resumo].join(' '));
+        return { el: card, texto };
+      });
+
+      const anterior = criarBotaoSeta('esquerda', `Ver eventos anteriores de ${cat.nome}`);
+      const proximo = criarBotaoSeta('direita', `Ver próximos eventos de ${cat.nome}`);
+      area.append(trilha, anterior, proximo);
+      secao.append(vazio, area);
+
+      const carrossel = { cat, secao, area, trilha, anterior, proximo, contagem, vazio, itens };
+
+      // Rolagem pelos botões: avança ~85% da largura visível.
+      const rolar = (sentido) => {
+        trilha.scrollBy({
+          left: sentido * trilha.clientWidth * 0.85,
+          behavior: prefereMenosMovimento() ? 'auto' : 'smooth'
+        });
+      };
+      anterior.addEventListener('click', () => rolar(-1));
+      proximo.addEventListener('click', () => rolar(1));
+
+      // Mantém as setas sincronizadas com a posição da rolagem e com o tamanho da tela.
+      trilha.addEventListener('scroll', () => atualizarSetas(carrossel), { passive: true });
+      if ('ResizeObserver' in window) new ResizeObserver(() => atualizarSetas(carrossel)).observe(trilha);
+      else window.addEventListener('resize', () => atualizarSetas(carrossel));
+
+      return carrossel;
+    }
+
+    /** Desabilita/esconde as setas conforme a posição (início, fim ou sem rolagem). */
+    function atualizarSetas(c) {
+      const max = c.trilha.scrollWidth - c.trilha.clientWidth;
+      const semRolagem = max <= 2;
+      c.anterior.classList.toggle('is-hidden', semRolagem);
+      c.proximo.classList.toggle('is-hidden', semRolagem);
+      // Folga de 8px: a trilha tem um pequeno recuo interno (px-1) e o "snap" pode parar a poucos pixels da borda.
+      c.anterior.disabled = c.trilha.scrollLeft <= 8;
+      c.proximo.disabled = c.trilha.scrollLeft >= max - 8;
+    }
+
+    /* ================================================================
+       7) BUSCA EM TEMPO REAL
+       ================================================================ */
+    const carrosseis = []; // preenchido depois que o JSON carrega
+
+    const campoBusca = document.getElementById('busca');
+    const formBusca = document.getElementById('form-busca');
+    const btnLimpar = document.getElementById('btn-limpar');
+    const btnLimparVazio = document.getElementById('btn-limpar-vazio');
+    const statusBusca = document.getElementById('status-busca');
+    const semResultados = document.getElementById('sem-resultados');
+
+    /**
+     * Mostra só os eventos que contêm TODAS as palavras digitadas
+     * (ignora maiúsculas e acentos). Categorias sem resultado somem.
+     */
+    function aplicarFiltro() {
+      const termoOriginal = campoBusca.value.trim();
+      const termos = normalizar(termoOriginal).split(/\s+/).filter(Boolean);
+      const buscando = termos.length > 0;
+      let total = 0;
+
+      btnLimpar.classList.toggle('is-hidden', campoBusca.value === '');
+
+      for (const c of carrosseis) {
+        let visiveis = 0;
+        for (const item of c.itens) {
+          const combina = termos.every((t) => item.texto.includes(t));
+          item.el.classList.toggle('is-hidden', !combina);
+          if (combina) visiveis++;
+        }
+        total += visiveis;
+
+        c.contagem.textContent = rotuloContagem(visiveis);
+        c.secao.classList.toggle('is-hidden', buscando && visiveis === 0);
+        c.trilha.scrollTo({ left: 0, behavior: 'auto' });
+        atualizarSetas(c);
+      }
+
+      semResultados.classList.toggle('is-hidden', !(buscando && total === 0 && carrosseis.length > 0));
+
+      if (!buscando) statusBusca.textContent = '';
+      else if (total === 0) statusBusca.textContent = `Nenhum resultado para “${termoOriginal}”.`;
+      else statusBusca.textContent = `${rotuloContagem(total)} para “${termoOriginal}”.`;
+    }
+
+    function limparBusca() {
+      campoBusca.value = '';
+      aplicarFiltro();
+      campoBusca.focus();
+    }
+
+    function ligarBusca() {
+      campoBusca.addEventListener('input', aplicarFiltro);
+      btnLimpar.addEventListener('click', limparBusca);
+      btnLimparVazio.addEventListener('click', limparBusca);
+
+      // Esc limpa o campo.
+      campoBusca.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && campoBusca.value) { e.preventDefault(); limparBusca(); }
+      });
+
+      // Enter: leva a tela até os resultados (útil no celular, onde a busca fica no topo).
+      formBusca.addEventListener('submit', (e) => {
+        e.preventDefault();
+        document.getElementById('eventos').scrollIntoView({ behavior: prefereMenosMovimento() ? 'auto' : 'smooth' });
+        campoBusca.blur();
+      });
+    }
+
+    /* ================================================================
+       8) INICIALIZAÇÃO
+       ================================================================ */
+
+    /** Se a logo não existir na pasta, mostra o nome do grupo em texto. */
+    function protegerLogos() {
+      document.querySelectorAll('img[data-logo]').forEach((img) => {
+        img.addEventListener('error', () => {
+          img.replaceWith(el('span', 'text-xl font-bold tracking-tight text-gray-900', 'Agroprecision'));
+        }, { once: true });
+      });
+    }
+
+    function mostrarErro(erro) {
+      console.error('[Agroprecision] Falha ao carregar eventos:', erro);
+
+      let dica = 'Verifique se o arquivo eventos.json existe na mesma pasta do index.html.';
+      if (erro instanceof SyntaxError) {
+        dica = 'O eventos.json tem um erro de escrita. Confira se não falta (ou sobra) alguma vírgula, aspas ou chave.';
+      } else if (location.protocol === 'file:') {
+        dica = 'Você abriu o arquivo direto do computador. Navegadores bloqueiam isso: rode um servidor local (por exemplo, "python -m http.server") ou publique no GitHub Pages.';
+      }
+
+      document.getElementById('erro-detalhe').textContent = `${dica} (Detalhe técnico: ${erro.message})`;
+      document.getElementById('erro-carregamento').classList.remove('is-hidden');
+    }
+
+    async function iniciar() {
+      protegerLogos();
+      ligarBusca();
+
+      const areaCarrosseis = document.getElementById('carrosseis');
+      const carregando = document.getElementById('carregando');
+
+      try {
+        const { eventos, ignorados } = await carregarEventos();
+
+        // Um carrossel por categoria, na ordem definida em CONFIG.categorias.
+        for (const cat of CONFIG.categorias) {
+          const doGrupo = eventos.filter((ev) => categoriaOficial(ev.categoria) === cat);
+          const carrossel = criarCarrossel(cat, doGrupo);
+          carrosseis.push(carrossel);
+          areaCarrosseis.append(carrossel.secao);
+        }
+
+        // Aviso discreto se algum evento foi descartado por erro no JSON.
+        if (ignorados.length > 0) {
+          const aviso = document.getElementById('aviso-dados');
+          aviso.textContent = `${ignorados.length === 1 ? '1 evento não foi exibido' : `${ignorados.length} eventos não foram exibidos`} por falta de informações ou categoria incorreta no eventos.json. Detalhes no console do navegador (F12).`;
+          aviso.classList.remove('is-hidden');
+        }
+
+        carregando.classList.add('is-hidden');
+        carrosseis.forEach(atualizarSetas);
+        aplicarFiltro(); // caso o usuário já tenha digitado algo durante o carregamento
+      } catch (erro) {
+        carregando.classList.add('is-hidden');
+        mostrarErro(erro);
+      }
+    }
+
+    iniciar();
+  })();
+  </script>
+</body>
+</html>

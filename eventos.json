@@ -1,0 +1,68 @@
+[
+  {
+    "id": "ufvjm-seminario-agricultura-precisao-exemplo",
+    "titulo": "Seminário de Agricultura de Precisão da UFVJM",
+    "categoria": "UFVJM",
+    "data": "Data a confirmar",
+    "local": "Diamantina - MG",
+    "modalidade": "Híbrido",
+    "resumo": "Evento de exemplo. Palestras e apresentação de trabalhos sobre sensoriamento remoto, drones e mapeamento aplicados ao manejo agrícola.",
+    "imagem": "imagens/ufvjm-seminario.jpg",
+    "link": "https://www.ufvjm.edu.br/"
+  },
+  {
+    "id": "ufvjm-minicurso-geoprocessamento-exemplo",
+    "titulo": "Minicurso de Geoprocessamento e Imagens de Satélite",
+    "categoria": "UFVJM",
+    "data": "Data a confirmar",
+    "local": "Evento online",
+    "modalidade": "Online",
+    "resumo": "Evento de exemplo. Minicurso introdutório sobre análise espacial, índices de vegetação e uso de imagens de satélite na agricultura.",
+    "imagem": "imagens/ufvjm-minicurso.jpg",
+    "link": "https://www.ufvjm.edu.br/"
+  },
+  {
+    "id": "congresso-recursos-geneticos-2026-exemplo",
+    "titulo": "IX Congresso Brasileiro de Recursos Genéticos",
+    "categoria": "Congressos e simpósios",
+    "data": "10 de nov. de 2026",
+    "local": "Florianópolis - SC",
+    "modalidade": "Presencial",
+    "resumo": "Evento de exemplo. Congresso sobre conservação e uso de recursos genéticos vegetais, animais e de microrganismos.",
+    "imagem": "imagens/cbrg-2026.jpg",
+    "link": "https://example.com/substitua-pelo-link-oficial"
+  },
+  {
+    "id": "simposio-ppgca-2026-exemplo",
+    "titulo": "Simpósio do PPGCA",
+    "categoria": "Congressos e simpósios",
+    "data": "10 de nov. de 2026",
+    "local": "Rio Largo - AL",
+    "modalidade": "Presencial",
+    "resumo": "Evento de exemplo. Simpósio do Programa de Pós-Graduação em Ciência Animal, com apresentação de trabalhos de discentes e palestras de convidados.",
+    "imagem": "imagens/simposio-ppgca.jpg",
+    "link": "https://example.com/substitua-pelo-link-oficial"
+  },
+  {
+    "id": "expo-londrina-leite-2026-exemplo",
+    "titulo": "Expo Londrina Leite 2026",
+    "categoria": "Feiras e encontros",
+    "data": "20 de nov. de 2026",
+    "local": "Londrina - PR",
+    "modalidade": "Presencial",
+    "resumo": "Evento de exemplo. Feira voltada à cadeia produtiva do leite, com exposições, palestras técnicas e rodadas de negócios.",
+    "imagem": "imagens/expo-londrina-leite.jpg",
+    "link": "https://example.com/substitua-pelo-link-oficial"
+  },
+  {
+    "id": "festival-do-queijo-2026-exemplo",
+    "titulo": "Festival do Queijo 2026",
+    "categoria": "Feiras e encontros",
+    "data": "26 de dez. de 2026",
+    "local": "Wenceslau Braz - MG",
+    "modalidade": "Presencial",
+    "resumo": "Evento de exemplo. Festival com degustações, concursos e encontros de produtores, valorizando a produção queijeira da região.",
+    "imagem": "imagens/festival-do-queijo.jpg",
+    "link": "https://example.com/substitua-pelo-link-oficial"
+  }
+]
