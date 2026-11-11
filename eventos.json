@@ -40,7 +40,7 @@
     "local": "Campus Unaí",
     "modalidade": "Presencial",
     "resumo": "Recepção de estudantes em nível médio e fundamental",
-    "imagem": "imagens/ufvjm/vempraufvjm.jpg",
+    "imagem": "imagens/ufvjm/vempraufvjm.jpeg",
     "link": "https://www.instagram.com/ufvjm_campusunai/"
   },
   {
@@ -64,6 +64,17 @@
     "resumo": "Apresentação de trabalhos.",
     "imagem": "imagens/congressos/sbsr.jpg",
     "link": "https://www.sbsr.com.br/"
+  },
+  {
+    "id": "macauba",
+    "titulo": "Congresso Internacional e Congresso Brasileiro de Macaúba 2027",
+    "categoria": "Congressos e simpósios",
+    "data": "19 a 21 de out. de 2027",
+    "local": "Viçosa - MG",
+    "modalidade": "Presencial",
+    "resumo": "Apresentação de trabalhos.",
+    "imagem": "imagens/congressos/macauba.png",
+    "link": "https://www.google.com/search?q=Congresso+Internacional+e+Congresso+Brasileiro+de+Maca%C3%BAba+2027"
   },
   {
     "id": "conbea",
