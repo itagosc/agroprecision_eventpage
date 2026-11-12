@@ -108,5 +108,38 @@
     "resumo": "Um encontro de IA, Tecnologia e Inovação.",
     "imagem": "imagens/encontros/conectaia.jpg",
     "link": "https://www.instagram.com/conectaia.inova/"
+  },
+  {
+    "id": "agrobrasilia",
+    "titulo": "AgroBrasília",
+    "categoria": "Feiras e encontros",
+    "data": "Data a confirmar (2027)",
+    "local": "Brasília - DF",
+    "modalidade": "Presencial",
+    "resumo": "Feira de tecnologia e negócios do agro no Planalto Central.",
+    "imagem": "",
+    "link": "https://agrobrasilia.com.br/"
+  },
+  {
+    "id": "conbap",
+    "titulo": "ConBAP - Congresso Brasileiro de Agricultura de Precisão e Digital",
+    "categoria": "Congressos e simpósios",
+    "data": "Data a confirmar",
+    "local": "A confirmar",
+    "modalidade": "Presencial",
+    "resumo": "Principal congresso nacional de agricultura de precisão e digital.",
+    "imagem": "",
+    "link": "https://www.ispag.org/about/countryrep/Brazil"
+  },
+  {
+    "id": "sbrh",
+    "titulo": "SBRH - Simpósio Brasileiro de Recursos Hídricos (ABRH)",
+    "categoria": "Congressos e simpósios",
+    "data": "Data a confirmar (2027)",
+    "local": "A confirmar",
+    "modalidade": "Presencial",
+    "resumo": "Maior encontro técnico-científico de recursos hídricos do país, promovido pela ABRH.",
+    "imagem": "",
+    "link": "https://eventos.abrhidro.org.br/"
   }
 ]
