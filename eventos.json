@@ -123,12 +123,12 @@
     "id": "agrobrasilia",
     "titulo": "AgroBrasília",
     "categoria": "Feiras e encontros",
-    "data": "Data a confirmar (2027)",
+    "data": "18 a 21 de mai. de 2027",
     "submissao": "",
     "local": "Brasília - DF",
     "modalidade": "Presencial",
     "resumo": "Feira de tecnologia e negócios do agro no Planalto Central.",
-    "imagem": "",
+    "imagem": "imagens/encontros/agrobrasilia.jpg",
     "link": "https://agrobrasilia.com.br/"
   },
   {
@@ -140,19 +140,19 @@
     "local": "A confirmar",
     "modalidade": "Presencial",
     "resumo": "Principal congresso nacional de agricultura de precisão e digital.",
-    "imagem": "",
+    "imagem": "imagens/congressos/conbap.jpg",
     "link": "https://www.ispag.org/about/countryrep/Brazil"
   },
   {
     "id": "sbrh",
     "titulo": "SBRH - Simpósio Brasileiro de Recursos Hídricos (ABRH)",
     "categoria": "Congressos e simpósios",
-    "data": "Data a confirmar (2027)",
+    "data": "23 a 28 de nov. de 2027",
     "submissao": "",
-    "local": "A confirmar",
+    "local": "Brasília - DF",
     "modalidade": "Presencial",
     "resumo": "Maior encontro técnico-científico de recursos hídricos do país, promovido pela ABRH.",
-    "imagem": "",
+    "imagem": "imagens/congressos/sbrh.jpg",
     "link": "https://eventos.abrhidro.org.br/"
   }
 ]
