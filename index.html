@@ -9,6 +9,15 @@
       content="Agenda de eventos acadêmicos, congressos, simpósios, feiras e encontros acompanhados pelo grupo de pesquisa Agroprecision."
     />
     <meta name="theme-color" content="#1e3a8a" />
+    <script>
+      // Tema escuro: usa a escolha salva; sem escolha, segue o sistema do visitante.
+      try {
+        var t = localStorage.getItem("tema");
+        if (t === "escuro" || (!t && matchMedia("(prefers-color-scheme: dark)").matches)) {
+          document.documentElement.classList.add("dark");
+        }
+      } catch (e) {}
+    </script>
     <link rel="icon" href="imagens/logo.png" type="image/png" />
 
     <!-- Fonte: Poppins (Google Fonts). Se falhar, o navegador usa uma fonte do sistema. -->
@@ -92,6 +101,58 @@
         appearance: none;
       }
 
+
+      /* ------------------------------------------------------------------
+       TEMA ESCURO
+       Ativado pela classe "dark" no <html> (botão do header). Em vez de
+       repetir "dark:" em cada elemento, sobrescrevemos aqui as cores
+       usadas pelo Tailwind. Para mudar o visual escuro, edite só este bloco.
+       Paleta: fundo #0b1220 | superfície #121c33 | borda #24304a | texto #e2e8f0
+       ------------------------------------------------------------------ */
+      html.dark { color-scheme: dark; }
+      html.dark body { background-color: #0b1220; }
+      html.dark .bg-white { background-color: #121c33; }
+      html.dark .bg-gray-50 { background-color: #0f1830; }
+      html.dark .bg-gray-100 { background-color: #1a2540; }
+      html.dark .bg-gray-200 { background-color: #263556; }
+      html.dark .focus\:bg-white:focus { background-color: #0b1220; }
+      html.dark .text-gray-900 { color: #f1f5f9; }
+      html.dark .text-gray-800 { color: #e2e8f0; }
+      html.dark .text-gray-700 { color: #cbd5e1; }
+      html.dark .text-gray-600 { color: #aab6cc; }
+      html.dark .text-gray-500 { color: #94a3b8; }
+      html.dark .text-gray-400 { color: #7b8aa5; }
+      html.dark .hover\:text-gray-700:hover { color: #e2e8f0; }
+      html.dark .hover\:bg-gray-200:hover { background-color: #263556; }
+      html.dark .border-gray-100 { border-color: #24304a; }
+      html.dark .border-gray-200 { border-color: #2b3957; }
+      html.dark .border-gray-300 { border-color: #364567; }
+      html.dark input::placeholder { color: #7b8aa5; }
+      /* Azul da marca (versões mais claras para ter contraste no fundo escuro) */
+      html.dark .text-brand-700, html.dark .text-brand-800,
+      html.dark .hover\:text-brand-700:hover, html.dark .hover\:text-brand-800:hover { color: #93b4ff; }
+      html.dark .bg-brand-50 { background-color: #0e1730; }
+      html.dark .bg-brand-100 { background-color: #1b2b55; }
+      html.dark .border-brand-100, html.dark .border-brand-200 { border-color: #22345f; }
+      html.dark .hover\:bg-brand-50:hover { background-color: #17254a; }
+      html.dark .bg-brand-700 { background-color: #2563eb; }
+      html.dark .hover\:bg-brand-800:hover { background-color: #1d4ed8; }
+      /* Avisos */
+      html.dark .bg-amber-50 { background-color: #2a1f08; }
+      html.dark .border-amber-200 { border-color: #5b4310; }
+      html.dark .text-amber-900 { color: #fde68a; }
+      html.dark .text-amber-800 { color: #fbbf24; }
+      html.dark .text-amber-700 { color: #f59e0b; }
+      html.dark .bg-red-50 { background-color: #2a1012; }
+      html.dark .border-red-200 { border-color: #6b1f24; }
+      html.dark .text-red-900 { color: #fecaca; }
+      /* A logo é preta sobre fundo branco: inverte e "mistura" com o fundo escuro. */
+      html.dark [data-logo] { filter: invert(1); mix-blend-mode: screen; }
+      /* Botão de alternar tema: mostra o ícone certo para cada modo. */
+      .icone-sol { display: none; }
+      html.dark .icone-sol { display: block; }
+      html.dark .icone-lua { display: none; }
+
       /* Respeita quem prefere menos animação. */
       @media (prefers-reduced-motion: reduce) {
         html {
@@ -162,6 +223,19 @@
                   class="rounded py-1 text-gray-700 transition hover:text-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
                   >Eventos</a
                 >
+              </li>
+              <li>
+                <button
+                  id="btn-tema"
+                  type="button"
+                  aria-pressed="false"
+                  aria-label="Ativar tema escuro"
+                  title="Alternar tema claro/escuro"
+                  class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-gray-300 text-gray-700 transition hover:border-brand-600 hover:text-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+                >
+                  <svg class="icone-lua h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>
+                  <svg class="icone-sol h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg>
+                </button>
               </li>
             </ul>
           </nav>
@@ -1341,6 +1415,23 @@
             mostrarErro(erro);
           }
         }
+
+        // ---------- Tema claro/escuro ----------
+        // A classe "dark" já pode ter sido aplicada no <head> (antes da pintura).
+        const botaoTema = document.getElementById("btn-tema");
+        const metaCor = document.querySelector('meta[name="theme-color"]');
+        function atualizarBotaoTema() {
+          const escuro = document.documentElement.classList.contains("dark");
+          botaoTema.setAttribute("aria-pressed", String(escuro));
+          botaoTema.setAttribute("aria-label", escuro ? "Ativar tema claro" : "Ativar tema escuro");
+          if (metaCor) metaCor.setAttribute("content", escuro ? "#0b1220" : "#1e3a8a");
+        }
+        botaoTema.addEventListener("click", () => {
+          const escuro = document.documentElement.classList.toggle("dark");
+          try { localStorage.setItem("tema", escuro ? "escuro" : "claro"); } catch (e) {}
+          atualizarBotaoTema();
+        });
+        atualizarBotaoTema();
 
         iniciar();
       })();
