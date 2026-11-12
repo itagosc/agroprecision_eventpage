@@ -47,6 +47,8 @@ Copie o bloco abaixo (de `{` até `}`):
 }
 ```
 
+> **Ordem dos cards:** o site ordena sozinho cada carrossel pela data mais próxima de hoje. Escreva a data com o ano (ex.: `"17 de nov. de 2026"` ou `"25 a 28 de abr. de 2027"`). Eventos com "Data a confirmar" ficam depois dos datados, e os já realizados vão para o fim.
+
 ### Passo 3 — Cole o molde no lugar certo
 Role até o **fim da lista**. O último evento termina com `}` e logo depois vem `]`. Siga esta regra:
 
