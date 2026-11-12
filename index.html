@@ -124,7 +124,7 @@
     <!-- Fixo no topo só em telas grandes: no celular o header tem 2 linhas e roubaria espaço da tela. -->
     <header class="z-40 border-b border-gray-200 bg-white lg:sticky lg:top-0">
       <div
-        class="mx-auto grid max-w-7xl grid-cols-[1fr_auto] items-center gap-x-4 gap-y-3 px-4 py-3 sm:px-6 lg:grid-cols-[1fr_auto_1fr] lg:gap-x-10 lg:px-8"
+        class="mx-auto grid max-w-7xl grid-cols-[1fr_auto] items-center gap-x-4 gap-y-3 px-4 py-3 sm:px-6 lg:grid-cols-[auto_1fr] lg:gap-x-10 lg:px-8"
       >
         <!-- Logo (alinhada à esquerda) -->
         <a
@@ -143,8 +143,8 @@
         </a>
 
         <!-- Bloco central: no mobile "dissolve" (contents) e seus filhos entram na grade -->
-        <div class="contents lg:flex lg:items-center lg:gap-8">
-          <!-- Navegação (centro-esquerda) -->
+        <div class="contents lg:flex lg:items-center lg:justify-self-end lg:gap-8">
+          <!-- Navegação (à direita no desktop) -->
           <nav aria-label="Navegação principal" class="justify-self-end">
             <ul
               class="flex items-center gap-5 text-sm font-medium sm:gap-7 sm:text-base"
@@ -166,7 +166,7 @@
             </ul>
           </nav>
 
-          <!-- Caixa de pesquisa (centro-direita): filtra os eventos em tempo real -->
+          <!-- Caixa de pesquisa (à direita no desktop): filtra os eventos em tempo real -->
           <form
             id="form-busca"
             role="search"
@@ -223,8 +223,6 @@
           </form>
         </div>
 
-        <!-- Espaço reservado à direita (equilibra a grade no desktop) -->
-        <div class="hidden lg:block" aria-hidden="true"></div>
       </div>
     </header>
 
@@ -239,7 +237,7 @@
         class="scroll-mt-4 lg:scroll-mt-24"
         aria-labelledby="titulo-eventos"
       >
-        <div class="mx-auto max-w-7xl px-4 pb-6 pt-10 sm:px-6 sm:pt-14 lg:px-8">
+        <div class="mx-auto max-w-7xl px-4 pb-2 pt-10 sm:px-6 sm:pt-12 lg:px-8">
           <!-- Introdução -->
           <div class="max-w-2xl">
             <h1
@@ -258,7 +256,7 @@
           <!-- Status da busca (lido por leitores de tela quando muda) -->
           <p
             id="status-busca"
-            class="mt-4 min-h-[1.5rem] text-sm font-medium text-brand-800"
+            class="mt-2 text-sm font-medium text-brand-800 empty:hidden"
             role="status"
             aria-live="polite"
           ></p>
@@ -271,7 +269,7 @@
           ></div>
         </div>
 
-        <div class="mx-auto max-w-7xl space-y-14 px-4 pb-16 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-7xl space-y-14 px-4 pb-16 pt-8 sm:px-6 lg:px-8">
           <!-- Esqueleto de carregamento (removido quando o JSON chega) -->
           <div id="carregando" class="space-y-14" aria-busy="true">
             <p class="sr-only">Carregando eventos…</p>
