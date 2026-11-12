@@ -38,6 +38,7 @@ Copie o bloco abaixo (de `{` até `}`):
   "titulo": "",
   "categoria": "",
   "data": "",
+  "submissao": "",
   "local": "",
   "modalidade": "",
   "resumo": "",
@@ -81,6 +82,7 @@ Escreva **entre as aspas**. Veja o que vai em cada campo:
 | `titulo` | Nome do evento. | `"Congresso Brasileiro de Recursos Genéticos"` |
 | `categoria` | **Exatamente** uma destas três (veja a observação abaixo). | `"Congressos e simpósios"` |
 | `data` | Texto livre: dia ou período. | `"10 a 13 de nov. de 2026"` |
+| `submissao` | **Opcional.** Prazo para enviar trabalhos. Aparece no card como "Submissão: ...". Se o evento não tiver, deixe `""` e a linha não aparece. | `"até 15 de jul. de 2026"` |
 | `local` | Cidade/Estado ou instituição. | `"Florianópolis - SC"` |
 | `modalidade` | **Exatamente** `"Presencial"`, `"Online"` ou `"Híbrido"`. | `"Presencial"` |
 | `resumo` | Descrição curta (1 a 2 frases). | `"Congresso nacional sobre..."` |
@@ -111,6 +113,7 @@ Em 1 a 2 minutos o GitHub Pages atualiza. Abra o site e use **Ctrl + F5** (ou pu
   "titulo": "",
   "categoria": "",
   "data": "",
+  "submissao": "",
   "local": "",
   "modalidade": "",
   "resumo": "",
@@ -127,6 +130,7 @@ Em 1 a 2 minutos o GitHub Pages atualiza. Abra o site e use **Ctrl + F5** (ou pu
   "titulo": "Congresso Brasileiro de Recursos Genéticos (CBRG)",
   "categoria": "Congressos e simpósios",
   "data": "10 a 13 de nov. de 2026",
+  "submissao": "até 15 de jul. de 2026",
   "local": "Florianópolis - SC",
   "modalidade": "Presencial",
   "resumo": "Congresso nacional sobre conservação e uso de recursos genéticos vegetais, animais e de microrganismos.",
